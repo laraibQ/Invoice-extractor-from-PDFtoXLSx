@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+
+# Virtual envs
+.venv/
+venv/
+env/
+ENV/
+*.venv
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs / caches
+*.log
+.pytest_cache/
+.cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Flask / local outputs
+instance/
+uploads/
+output/
+*_outputs/
+*_uploads/
+*.probe.csv
+*.sqlite3
+*.db
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build / packaging
+dist/
+build/
+*.egg-info/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Local download clutter
+sample doc/*(*,*
+samples/*(*,*
