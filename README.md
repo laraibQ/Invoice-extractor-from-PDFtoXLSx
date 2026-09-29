@@ -9,6 +9,20 @@ Extract line-item tables from invoice PDFs and download them as **Excel (.xlsx)*
 - Web UI with drag-and-drop upload and format choice (XLSX or CSV)
 - CLI scripts for batch or debugging use
 
+## Screenshots
+
+Home — drop a PDF and choose Excel or CSV:
+
+![Home upload screen](docs/screenshots/home.png)
+
+Home with a file selected and Extract ready:
+
+![Home with PDF selected](docs/screenshots/home-file-selected.png)
+
+About:
+
+![About page](docs/screenshots/about.png)
+
 ## Requirements
 
 - Python 3.11+
@@ -85,6 +99,7 @@ python vision_extractor.py path/to/invoice.pdf -o out.csv -d
 | `table_detector.py` | Image table helpers |
 | `table_extraction_enhancement.py` | Cleanup / scoring helpers |
 | `templates/` / `static/` | Web UI |
+| `docs/screenshots/` | README UI screenshots |
 | `samples/` | Example invoice PDF |
 
 ## Notes
