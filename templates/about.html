@@ -6,21 +6,23 @@
     <title>About · Invoice CSV Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="page">
-        <header class="topbar">
+    <header class="top">
+        <div class="top-inner">
             <a class="brand" href="{{ url_for('index') }}">Invoice CSV Studio</a>
             <nav>
                 <a href="{{ url_for('index') }}" class="nav-link">Home</a>
                 <a href="{{ url_for('about') }}" class="nav-link is-active">About</a>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <main class="content">
-            <h1>About Invoice CSV Studio</h1>
+    <div class="page">
+        <main class="panel content">
+            <h1>About</h1>
             <p>
                 Invoice CSV Studio turns invoice PDFs into structured CSV files.
                 It combines PDF text parsing, OCR for scanned pages, and OpenCV-based
@@ -40,10 +42,7 @@
             <p><a class="btn btn-primary" href="{{ url_for('index') }}">Back to upload</a></p>
         </main>
 
-        <footer class="footer">
-            <span>Invoice CSV Studio</span>
-            <span>&copy; 2026</span>
-        </footer>
+        <footer class="footer">Invoice CSV Studio · 2026</footer>
     </div>
 </body>
 </html>

@@ -6,92 +6,83 @@
     <title>Invoice CSV Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="page">
-        <header class="topbar">
+    <header class="top">
+        <div class="top-inner">
             <a class="brand" href="{{ url_for('index') }}">Invoice CSV Studio</a>
             <nav>
                 <a href="{{ url_for('index') }}" class="nav-link is-active">Home</a>
                 <a href="{{ url_for('about') }}" class="nav-link">About</a>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <main class="hero">
-            <p class="eyebrow">PDF line items → spreadsheet file</p>
-            <h1>Pull invoice tables into a spreadsheet-ready file.</h1>
-            <p class="lede">Upload a PDF invoice. The app finds the main table, cleans the rows, and lets you download Excel or CSV.</p>
+    <div class="page">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-stack">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category if category != 'error' else 'danger' }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <div class="flash-stack" id="client-flash" hidden></div>
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <div class="flash-stack">
-                        {% for category, message in messages %}
-                            <div class="flash flash-{{ category if category != 'error' else 'danger' }}">{{ message }}</div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
-            <div class="flash-stack" id="client-flash" hidden></div>
+        <main class="panel workspace">
+            <section class="intro">
+                <h1>Extract invoice tables</h1>
+                <p class="lede">Upload a PDF invoice. The app finds the main table, cleans the rows, and lets you download Excel or CSV.</p>
+            </section>
 
             <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" id="upload-form" class="upload-panel">
                 <div class="upload-area" id="upload-area">
-                    <strong>Drop a PDF here</strong>
-                    <span>or choose a file from your computer</span>
-                    <label for="file-input" class="btn btn-ghost">Select PDF</label>
+                    <span class="file-badge" aria-hidden="true">PDF</span>
+                    <div class="upload-copy">
+                        <strong>Drop a PDF here</strong>
+                        <span>or choose a file from your computer</span>
+                        <p class="file-name" id="file-name"></p>
+                    </div>
+                    <label for="file-input" class="btn btn-ghost">Choose PDF</label>
                     <input type="file" id="file-input" name="file" accept=".pdf" class="sr-only">
-                    <p class="file-name" id="file-name"></p>
                 </div>
 
-                <fieldset class="format-picker">
-                    <legend>Download format</legend>
-                    <label class="format-option">
-                        <input type="radio" name="format" value="xlsx" checked>
-                        <span>
-                            <strong>Excel (.xlsx)</strong>
-                            <small>Wider columns, opens cleanly in Excel</small>
-                        </span>
-                    </label>
-                    <label class="format-option">
-                        <input type="radio" name="format" value="csv">
-                        <span>
-                            <strong>CSV (.csv)</strong>
-                            <small>Plain text for Sheets, scripts, and imports</small>
-                        </span>
-                    </label>
-                </fieldset>
-
-                <button type="submit" class="btn btn-primary" id="extract-btn" disabled>Extract table</button>
+                <div class="actions">
+                    <fieldset class="format-picker">
+                        <legend>Download as</legend>
+                        <label class="format-option">
+                            <input type="radio" name="format" value="xlsx" checked>
+                            <span>Excel</span>
+                        </label>
+                        <label class="format-option">
+                            <input type="radio" name="format" value="csv">
+                            <span>CSV</span>
+                        </label>
+                    </fieldset>
+                    <button type="submit" class="btn btn-primary" id="extract-btn" disabled>Extract table</button>
+                </div>
             </form>
-        </main>
 
-        <section class="features">
-            <h2>What you get</h2>
-            <ul class="feature-grid">
+            <ul class="notes">
                 <li class="feature-item">
-                    <h3>Table detection</h3>
-                    <p>Locates the line-item table even when borders are missing or the layout is uneven.</p>
+                    <strong>Table detection</strong>
+                    <span>Finds the line-item table even when borders are missing or the layout is uneven.</span>
                 </li>
                 <li class="feature-item">
-                    <h3>Excel or CSV</h3>
-                    <p>Choose the download format that fits how you work with the data.</p>
+                    <strong>Multi-page PDFs</strong>
+                    <span>Follows tables that continue across pages instead of stopping at the first break.</span>
                 </li>
                 <li class="feature-item">
-                    <h3>Multi-page PDFs</h3>
-                    <p>Follows tables that continue across pages instead of stopping at the first page break.</p>
-                </li>
-                <li class="feature-item">
-                    <h3>Noise filtering</h3>
-                    <p>Skips headers, footers, and side notes so the file stays focused on line items.</p>
+                    <strong>Cleaner rows</strong>
+                    <span>Skips headers, footers, and side notes so the file stays on the line items.</span>
                 </li>
             </ul>
-        </section>
+        </main>
 
-        <footer class="footer">
-            <span>Invoice CSV Studio</span>
-            <span>&copy; 2026</span>
-        </footer>
+        <footer class="footer">Invoice CSV Studio · 2026</footer>
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
